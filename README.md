@@ -12,6 +12,8 @@ Project: Virtual Technical Conference Platform
 
 Contains:
 - Requirements Table (5 FRs, 2 NFRs)
-  <br>  [REQUIREMENTS_TABLE](/LAB-1/REQUIREMENTS_TABLE.pdf)
+  <br>  [Requirements Table](/LAB-1/REQUIREMENTS_TABLE.pdf)
 - UML Use-Case Diagram (actors, use cases, include/extend relationships)
+  <br>  [Use-Case Diagram](/LAB-1/USE_CASE_MODEL.pdf)
 - Use-Case Flow Document (Preconditions, Postconditions, Main Success Scenario, Alternate Flow)
+  <br>  [Use-Case Flow](/LAB-1/USE_CASE_FLOW.pdf)
