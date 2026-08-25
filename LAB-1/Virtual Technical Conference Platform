@@ -1,0 +1,10 @@
+Project: Virtual Technical Conference Platform
+SRN: PES1UG24CS551
+Name: Abhay Dubey H
+
+Lab 1 - Requirements Engineering & UML Use-Case Modelling
+
+What has been done so far:
+- Requirements Table: 5 FRs (FR-001 to FR-005) and 2 NFRs (NFR-001, NFR-002) with ID, Type, Description, Priority, Acceptance Criteria, and Rationale.
+- UML Use-Case Diagram: Actors (Conference Author, Reviewer, Track Chair, Attendee), 6 use cases, system boundary, one <<include>> and one <<extend>> relationship. (Diagram still needs to be exported to PDF.)
+- Use-Case Flow Document: Preconditions, Postconditions, Main Success Scenario, and Alternate Flow for "Generate Multi-Track Schedule".
