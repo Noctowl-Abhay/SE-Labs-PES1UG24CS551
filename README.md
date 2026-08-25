@@ -11,6 +11,6 @@ Name: Abhay Dubey H
 Project: Virtual Technical Conference Platform
 
 Contains:
-- Requirements Table (5 FRs, 2 NFRs)
+- Requirements Table (5 FRs, 2 NFRs) [REQUIREMENTS_TABLE](/LAB-1/REQUIREMENTS_TABLE.pdf)
 - UML Use-Case Diagram (actors, use cases, include/extend relationships)
 - Use-Case Flow Document (Preconditions, Postconditions, Main Success Scenario, Alternate Flow)
