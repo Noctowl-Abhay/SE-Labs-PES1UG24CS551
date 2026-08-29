@@ -1,1 +1,16 @@
 
+Project: Virtual Technical Conference Platform
+SRN: PES1UG24CS551
+Name: Abhay Dubey H
+
+Lab 2 - Agile Project Management with Jira
+
+What has been done so far:
+- Epic Creation: Created EPIC "Anonymisation of Submitted Papers" (FR-001) on the VTCP board, with backlog visible (3 work items).
+- Story Creation: Created 3 stories under the EPIC with story points and priority - VTCP-2 Automated PDF Metadata Stripping (5 pts), VTCP-3 Visual Header & Footer Redaction (3 pts), VTCP-4 Reviewer Anonymized File Access (2 pts).
+- Sprint Setup: Created and started "VTCP Sprint 1" from the backlog with all 3 stories (10 total story points estimated).
+- Sprint Board Workflow: Moved all 3 stories through TO DO -> IN PROGRESS -> DONE on the Active Sprints board.
+- Sprint Completion: Completed VTCP Sprint 1 with all 3 work items marked done.
+- Burndown Chart: Generated graphical burndown chart showing story points remaining over the sprint timeline.
+- Burndown Analysis/Report: Reviewed the burndown event log (sprint start, issue completions, sprint end) and work item summary reports (by status, type, assignee).
+- Reflection Questions: Answered on estimation accuracy, backlog prioritization, sprint alignment, and capacity insights from the burndown chart.
