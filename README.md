@@ -15,7 +15,7 @@ Contains:
 - Use-Case Flow Document (Preconditions, Postconditions, Main Success Scenario, Alternate Flow)
   <br>  [Use-Case Flow](/LAB-1/USE_CASE_FLOW.pdf)
 - Lab Summary
-  <br>  [Lab 1 Summary](/LAB-2/LAB1_SUMMARY.txt)
+  <br>  [Lab 1 Summary](/LAB-1/LAB1_SUMMARY.txt)
 
 ### LAB-2: Agile Project Management with Jira
 Project: Virtual Technical Conference Platform
