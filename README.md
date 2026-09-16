@@ -1,5 +1,5 @@
 # SE-Labs-PES1UG24CS551
-Software Engineering lab submissions.
+Software Engineering lab submissions.<br>
 SRN: PES1UG24CS551 <br>
 Name: Abhay Dubey H
 
@@ -24,4 +24,13 @@ Contains:
   <br>  [Jira Lab Report](/LAB-2/JIRA_STORY_BACKLOG.pdf)
 - Lab Summary
   <br>  [Lab 2 Summary](/LAB-2/LAB2_SUMMARY.txt)
-  
+
+### LAB-3: Component Modelling & Architectural Pattern Selection
+Project: Virtual Technical Conference Platform
+Contains:
+- UML Component Diagram (Microservices Architecture - API Gateway, Authentication Service, Paper Submission & Review Service, Schedule Generator Service, Live Q&A Service, Conference Database)
+  <br>  [Component Diagram](/LAB-3/COMPONENT_DIAGRAM_UML.pdf)
+- Architectural Justification (architecture selection, two scenario-specific reasons, security advantage, performance benefit)
+  <br>  [Architecture Justification](/LAB-3/Architecture_Use_Justified.pdf)
+- Lab Summary
+  <br>  [Lab 3 Summary](/LAB-3/LAB3_SUMMARY.txt)
