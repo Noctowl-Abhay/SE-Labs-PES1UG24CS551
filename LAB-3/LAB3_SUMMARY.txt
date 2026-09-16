@@ -1,1 +1,12 @@
 
+Project: Virtual Technical Conference Platform
+SRN: PES1UG24CS551
+Name: Abhay Dubey H
+
+Lab 3 - Component Modelling & Architectural Pattern Selection
+
+What has been done so far:
+- Architectural Style Analysis: Compared Layered, Microservices, and Client-Server architectures against VTCP's uneven load profile (bursty Live Q&A upvotes vs. compute-heavy schedule optimization) and its largely independent actor-driven workflows (Author, Reviewer, Track Chair, Attendee).
+- Architecture Selection: Chose Microservices Architecture, with an API Gateway routing all external traffic to independently deployable services.
+- Component Diagram: Identified 6 components - API Gateway, Authentication Service, Paper Submission & Review Service, Schedule Generator Service, Live Q&A Service, and Conference Database - connected via IPlatformAPI, IAuthData, IPaperData, IScheduleData, and IQnAData interfaces with <<use>> dependencies.
+- Written Justification: One-page document covering the architecture choice, two reasons (independent scaling for peak loads per NFR-001, fault isolation across independent workflows), a security advantage (narrow per-service boundaries enforcing FR-001 anonymization and NFR-002 encryption close to the data), and a performance benefit (dedicated compute for the Schedule Generator Service meeting the sub-10-second NFR-001 benchmark).
