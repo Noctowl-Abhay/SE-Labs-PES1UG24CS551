@@ -39,7 +39,7 @@ Contains:
 Project: Air Hockey game (LLM-assisted bug fix and feature development using Google Gemini)
 Contains:
 - Updated source code (fixed puck-paddle collision, match scoring, 30-second match timer, puck/paddle reset after goals)
-  <br>  [Updated Code](/LAB-4/air-hockey)
+  <br>  [Updated Code](/LAB-4/02_air_hockey/air-hockey)
 - Lab README (task-by-task write-up and how to run)
   <br>  [Lab 4 README](/LAB-4/README.md)
 - Gameplay videos (10 seconds each)
