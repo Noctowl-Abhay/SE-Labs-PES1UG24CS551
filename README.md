@@ -34,3 +34,17 @@ Contains:
   <br>  [Architecture Justification](/LAB-3/Architecture_Use_Justified.pdf)
 - Lab Summary
   <br>  [Lab 3 Summary](/LAB-3/LAB3_SUMMARY.txt)
+
+### LAB-4: Vibe Coding - Air Hockey (Pygame)
+Project: Air Hockey game (LLM-assisted bug fix and feature development using Google Gemini)
+Contains:
+- Updated source code (fixed puck-paddle collision, match scoring, 30-second match timer, puck/paddle reset after goals)
+  <br>  [Updated Code](/LAB-4/air-hockey)
+- Lab README (task-by-task write-up and how to run)
+  <br>  [Lab 4 README](/LAB-4/README.md)
+- Gameplay videos (10 seconds each)
+  <br>  [Before Changes](/LAB-4/Run_main_Before.mp4) | [After Changes](/LAB-4/Run_main_After.mp4)
+- Chat history with the LLM
+  <br>  [Prompts / Chat History](/LAB-4/PROMPTS-VIBE-CODING.pdf)
+- Lab Summary
+  <br>  [Lab 4 Summary](/LAB-4/LAB4_SUMMARY.txt)
