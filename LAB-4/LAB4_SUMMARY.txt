@@ -1,1 +1,112 @@
+LAB-4 SUMMARY: VIBE CODING (AIR HOCKEY, PYGAME)
+SRN:  PES1UG24CS551
+Name: Abhay Dubey H
 
+--------------------------------------------------------------------
+OBJECTIVE
+--------------------------------------------------------------------
+Use an LLM as a pair-programming partner to fix one deliberate bug and
+add three features to a provided Pygame Air Hockey game, getting each
+task done in as few prompts as possible, and reviewing the generated
+code critically before using it.
+
+LLM used: Google Gemini
+Chat link: https://gemini.google.com/app/74d9dcbf646ed8af
+Full chat history exported as: PROMPTS-VIBE-CODING.pdf
+
+--------------------------------------------------------------------
+STARTING POINT
+--------------------------------------------------------------------
+The provided game had a player paddle (arrow keys), a computer paddle,
+a puck bouncing off walls and paddles, and goals at the centre of each
+end wall. It had no scoring, no timer, an incomplete post-goal reset
+(the puck was left motionless at the centre), and a broken
+puck-paddle collision.
+
+--------------------------------------------------------------------
+TASKS COMPLETED
+--------------------------------------------------------------------
+Task 1 - Fix puck-paddle collision (game/collisions.py)
+  Problem: the old code only flipped puck.vx on contact. The angle of
+  impact was ignored, and the puck was never moved out of the paddle,
+  so it could stay overlapped and vibrate or pass through.
+  Fix:
+   - Compute the collision normal from the two centres (math.hypot).
+   - Overlap resolution: push the puck out along the normal.
+   - Reflect velocity using the dot product: v = v - 2(v.n)n.
+   - Only reflect when the puck is moving towards the paddle
+     (dot < 0), so a paddle overtaking the puck cannot trap it.
+   - Guard against distance == 0 (division by zero).
+
+Task 2 - Match scoring (game_engine.py, renderer.py)
+   - Added player_score, computer_score, game_over, winner_text.
+   - A point is awarded only when the puck is inside the goal gap
+     (GOAL_TOP < y < GOAL_BOTTOM); elsewhere it bounces off the wall.
+   - Added draw_hud() for the live scores and draw_game_over() for a
+     dark overlay with the result message.
+   - Game logic and paddle input freeze when game_over is True;
+     pressing R restarts the match.
+   - Rendering stays in renderer.py; state stays in the engine.
+
+Task 3 - 30-second match timer (main.py, game_engine.py, renderer.py)
+   - main.py now captures dt = clock.tick(60) / 1000.0 and passes it to
+     engine.update(dt), so the timer is frame-rate independent.
+   - GameEngine.time_left starts at MATCH_TIME_SECONDS (30.0) and
+     counts down only while the match is active.
+   - At 0, gameplay stops and _end_match_by_time() compares scores:
+     Player Wins / Computer Wins / Match Draw.
+   - The remaining time is shown at the top centre of the screen.
+   - R resets the timer to 30 seconds.
+
+Task 4 - Puck reset after scoring (puck.py, paddle.py, game_engine.py)
+   - Puck.reset(x, y): centre position, vx = vy = 0.
+   - Paddle stores start_x/start_y and has reset(); both paddles
+     return to their starting positions after a goal.
+   - GameEngine._reset_board(serve_direction) calls both resets and
+     then _launch_puck(), so the puck is never left motionless.
+   - The serve goes towards the side that just conceded the goal.
+
+--------------------------------------------------------------------
+PROMPTING APPROACH
+--------------------------------------------------------------------
+One structured prompt per task, each containing:
+   1. A role ("expert Python Pygame developer").
+   2. The problem or requirement, in numbered points.
+   3. The relevant current code pasted in.
+   4. What output I wanted (full file or targeted snippets) and the
+      design constraint (separation of concerns, dt-based timing).
+Tasks were done in order, and each prompt included my latest code so
+the model built on the previous changes. One short follow-up
+("are these the full files that I can copy paste?") exposed that the
+renderer.py snippet was partial; the model then returned the complete
+merged file.
+
+--------------------------------------------------------------------
+CRITICAL REVIEW / THINGS TO NOTE
+--------------------------------------------------------------------
+ - Early-win rule: the model kept a WINNING_SCORE = 5 early finish
+   alongside the timer. The README says the match should run for the
+   full 30 seconds, so set WINNING_SCORE very high (or remove
+   _check_win_condition's early finish) if a strict 30-second match
+   is required.
+ - Paddle momentum is not transferred to the puck on hit (the model
+   only mentioned it as an optional extension).
+ - Each snippet was integrated into the existing files by hand and
+   the game was run after each task.
+
+--------------------------------------------------------------------
+HOW TO RUN
+--------------------------------------------------------------------
+   pip install -r requirements.txt
+   python main.py
+Arrow keys move the blue paddle; R restarts the match.
+
+--------------------------------------------------------------------
+DELIVERABLES (LAB-4 folder)
+--------------------------------------------------------------------
+ - Run_main_Before.mp4 : 10-second gameplay before changes
+ - Run_main_After.mp4  : 10-second gameplay after changes
+ - air-hockey/         : updated source code
+ - PROMPTS-VIBE-CODING.pdf : exported chat history
+ - README.md           : task-by-task write-up and run instructions
+ - LAB4_SUMMARY.txt    : this file
