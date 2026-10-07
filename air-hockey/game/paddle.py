@@ -3,9 +3,10 @@ Paddle: a player's or the computer's mallet, confined to their own half
 of the table.
 """
 
-
 class Paddle:
     def __init__(self, x, y, radius, min_x, max_x, min_y, max_y):
+        self.start_x = x
+        self.start_y = y
         self.x = x
         self.y = y
         self.radius = radius
@@ -26,4 +27,10 @@ class Paddle:
     def move_to(self, x, y):
         self.x = x
         self.y = y
+        self.clamp()
+
+    def reset(self):
+        """Returns the paddle to its initial starting position."""
+        self.x = self.start_x
+        self.y = self.start_y
         self.clamp()

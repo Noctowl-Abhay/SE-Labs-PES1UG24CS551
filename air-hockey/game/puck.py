@@ -2,7 +2,6 @@
 Puck: the disc players are trying to hit into the opponent's goal.
 """
 
-
 class Puck:
     def __init__(self, x, y, radius=12):
         self.x = x
@@ -24,3 +23,10 @@ class Puck:
         elif self.y + self.radius > height - margin:
             self.y = height - margin - self.radius
             self.vy = -self.vy
+
+    def reset(self, center_x, center_y):
+        """Places the puck at the center and clears all velocity/forces."""
+        self.x = center_x
+        self.y = center_y
+        self.vx = 0.0
+        self.vy = 0.0

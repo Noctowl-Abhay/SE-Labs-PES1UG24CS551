@@ -1,10 +1,6 @@
 """
 GameEngine: owns the puck, both paddles, and the computer AI, and runs
 one frame's worth of game logic.
-
-Starter version: the puck bounces around and paddles can hit it, but
-there is no scoring, no match timer, and the reset that happens after
-a goal is incomplete. That's what Tasks 2-4 fix/add.
 """
 
 import random
@@ -21,7 +17,8 @@ PUCK_RADIUS = 12
 PADDLE_RADIUS = 28
 INITIAL_PUCK_SPEED = 4.5
 WINNING_SCORE = 5  
-MATCH_TIME_SECONDS = 30.0  # Added match timer constant
+MATCH_TIME_SECONDS = 30.0
+
 
 class GameEngine:
     def __init__(self):
@@ -29,7 +26,7 @@ class GameEngine:
         self.computer_score = 0
         self.game_over = False
         self.winner_text = ""
-        self.time_left = MATCH_TIME_SECONDS  # Initialize match time
+        self.time_left = MATCH_TIME_SECONDS
 
         self.player_start_pos = (WIDTH * 0.15, HEIGHT / 2)
         self.computer_start_pos = (WIDTH * 0.85, HEIGHT / 2)
@@ -49,12 +46,69 @@ class GameEngine:
         self.ai = ComputerAI()
         self._launch_puck()
 
-    def _launch_puck(self):
+    def _launch_puck(self, serve_direction=None):
+        """Launches the puck. If serve_direction is specified, routes it toward that side."""
         angle_choices = [0.3, 0.6, -0.3, -0.6]
-        direction = random.choice([-1, 1])
+        
+        # If no direction specified (e.g. game start), pick randomly
+        if serve_direction is None:
+            direction = random.choice([-1, 1])
+        else:
+            direction = serve_direction
+            
         vy_factor = random.choice(angle_choices)
         self.puck.vx = INITIAL_PUCK_SPEED * direction
         self.puck.vy = INITIAL_PUCK_SPEED * vy_factor
+
+    def _handle_goals(self):
+        # Left goal (Computer scores)
+        if self.puck.x - self.puck.radius < MARGIN:
+            if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
+                self.computer_score += 1
+                self._check_win_condition(serve_direction=-1)  # Serve to left (Player)
+            else:
+                self.puck.x = MARGIN + self.puck.radius
+                self.puck.vx = -self.puck.vx
+                
+        # Right goal (Player scores)
+        elif self.puck.x + self.puck.radius > WIDTH - MARGIN:
+            if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
+                self.player_score += 1
+                self._check_win_condition(serve_direction=1)  # Serve to right (Computer)
+            else:
+                self.puck.x = WIDTH - MARGIN - self.puck.radius
+                self.puck.vx = -self.puck.vx
+
+    def _check_win_condition(self, serve_direction=None):
+        if self.player_score >= WINNING_SCORE:
+            self.game_over = True
+            self.winner_text = "Player Wins! Press 'R' to Restart"
+        elif self.computer_score >= WINNING_SCORE:
+            self.game_over = True
+            self.winner_text = "Computer Wins! Press 'R' to Restart"
+        else:
+            self._reset_board(serve_direction)
+
+    def _reset_board(self, serve_direction=None):
+        """Cleans board state entirely using class-level resets."""
+        # Reset puck to exact center and clear velocity
+        self.puck.reset(WIDTH / 2, HEIGHT / 2)
+        
+        # Reset paddles to their starting halves, ensuring no overlap
+        self.player.reset()
+        self.computer.reset()
+        
+        # Launch the puck to the player who conceded
+        self._launch_puck(serve_direction)
+
+    def _reset_match(self):
+        """Resets the entire game after a win."""
+        self.player_score = 0
+        self.computer_score = 0
+        self.game_over = False
+        self.winner_text = ""
+        self.time_left = MATCH_TIME_SECONDS  
+        self._reset_board(serve_direction=None)  # Random serve on entirely new match
 
     def handle_input(self, keys_pressed):
         if self.game_over:
@@ -82,7 +136,7 @@ class GameEngine:
         if self.time_left <= 0:
             self.time_left = 0
             self._end_match_by_time()
-            return # Skip physics updates for this frame
+            return  # Skip physics updates for this frame
 
         self.ai.update(self.computer, self.puck)
 
@@ -103,48 +157,6 @@ class GameEngine:
             self.winner_text = "Time Up! Computer Wins! Press 'R' to Restart"
         else:
             self.winner_text = "Time Up! Match Draw! Press 'R' to Restart"
-
-    def _handle_goals(self):
-        if self.puck.x - self.puck.radius < MARGIN:
-            if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
-                self.computer_score += 1
-                self._check_win_condition()
-            else:
-                self.puck.x = MARGIN + self.puck.radius
-                self.puck.vx = -self.puck.vx
-                
-        elif self.puck.x + self.puck.radius > WIDTH - MARGIN:
-            if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
-                self.player_score += 1
-                self._check_win_condition()
-            else:
-                self.puck.x = WIDTH - MARGIN - self.puck.radius
-                self.puck.vx = -self.puck.vx
-
-    def _check_win_condition(self):
-        """Retained for early wins if a player reaches WINNING_SCORE before time is up."""
-        if self.player_score >= WINNING_SCORE:
-            self.game_over = True
-            self.winner_text = "Player Wins! Press 'R' to Restart"
-        elif self.computer_score >= WINNING_SCORE:
-            self.game_over = True
-            self.winner_text = "Computer Wins! Press 'R' to Restart"
-        else:
-            self._reset_board()
-
-    def _reset_board(self):
-        self.puck.x, self.puck.y = WIDTH / 2, HEIGHT / 2
-        self._launch_puck()
-        self.player.x, self.player.y = self.player_start_pos
-        self.computer.x, self.computer.y = self.computer_start_pos
-
-    def _reset_match(self):
-        self.player_score = 0
-        self.computer_score = 0
-        self.game_over = False
-        self.winner_text = ""
-        self.time_left = MATCH_TIME_SECONDS  # Reset timer on match restart
-        self._reset_board()
 
     def draw(self, surface, font):
         from game import renderer
