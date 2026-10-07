@@ -20,17 +20,17 @@ PLAYER_SPEED = 6
 PUCK_RADIUS = 12
 PADDLE_RADIUS = 28
 INITIAL_PUCK_SPEED = 4.5
-WINNING_SCORE = 5  # First to 5 wins
+WINNING_SCORE = 5  
+MATCH_TIME_SECONDS = 30.0  # Added match timer constant
 
 class GameEngine:
     def __init__(self):
-        # Match State
         self.player_score = 0
         self.computer_score = 0
         self.game_over = False
         self.winner_text = ""
+        self.time_left = MATCH_TIME_SECONDS  # Initialize match time
 
-        # Initial positions for reset
         self.player_start_pos = (WIDTH * 0.15, HEIGHT / 2)
         self.computer_start_pos = (WIDTH * 0.85, HEIGHT / 2)
 
@@ -57,11 +57,10 @@ class GameEngine:
         self.puck.vy = INITIAL_PUCK_SPEED * vy_factor
 
     def handle_input(self, keys_pressed):
-        # Handle game reset if match is over
         if self.game_over:
             if keys_pressed[pygame.K_r]:
                 self._reset_match()
-            return  # Freeze paddle movement during game over
+            return  
 
         dx = dy = 0
         if keys_pressed[pygame.K_UP]:
@@ -74,9 +73,16 @@ class GameEngine:
             dx += PLAYER_SPEED
         self.player.move_by(dx, dy)
 
-    def update(self):
+    def update(self, dt):
         if self.game_over:
-            return  # Freeze game logic
+            return 
+
+        # Timer countdown logic
+        self.time_left -= dt
+        if self.time_left <= 0:
+            self.time_left = 0
+            self._end_match_by_time()
+            return # Skip physics updates for this frame
 
         self.ai.update(self.computer, self.puck)
 
@@ -88,8 +94,17 @@ class GameEngine:
 
         self._handle_goals()
 
+    def _end_match_by_time(self):
+        """Triggered when the 30-second timer hits 0."""
+        self.game_over = True
+        if self.player_score > self.computer_score:
+            self.winner_text = "Time Up! Player Wins! Press 'R' to Restart"
+        elif self.computer_score > self.player_score:
+            self.winner_text = "Time Up! Computer Wins! Press 'R' to Restart"
+        else:
+            self.winner_text = "Time Up! Match Draw! Press 'R' to Restart"
+
     def _handle_goals(self):
-        # Left goal (Computer scores)
         if self.puck.x - self.puck.radius < MARGIN:
             if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
                 self.computer_score += 1
@@ -98,7 +113,6 @@ class GameEngine:
                 self.puck.x = MARGIN + self.puck.radius
                 self.puck.vx = -self.puck.vx
                 
-        # Right goal (Player scores)
         elif self.puck.x + self.puck.radius > WIDTH - MARGIN:
             if GOAL_TOP < self.puck.y < GOAL_BOTTOM:
                 self.player_score += 1
@@ -108,6 +122,7 @@ class GameEngine:
                 self.puck.vx = -self.puck.vx
 
     def _check_win_condition(self):
+        """Retained for early wins if a player reaches WINNING_SCORE before time is up."""
         if self.player_score >= WINNING_SCORE:
             self.game_over = True
             self.winner_text = "Player Wins! Press 'R' to Restart"
@@ -118,18 +133,17 @@ class GameEngine:
             self._reset_board()
 
     def _reset_board(self):
-        """Resets puck and paddles after a goal."""
         self.puck.x, self.puck.y = WIDTH / 2, HEIGHT / 2
         self._launch_puck()
         self.player.x, self.player.y = self.player_start_pos
         self.computer.x, self.computer.y = self.computer_start_pos
 
     def _reset_match(self):
-        """Resets the entire game after a win."""
         self.player_score = 0
         self.computer_score = 0
         self.game_over = False
         self.winner_text = ""
+        self.time_left = MATCH_TIME_SECONDS  # Reset timer on match restart
         self._reset_board()
 
     def draw(self, surface, font):
@@ -139,7 +153,7 @@ class GameEngine:
         renderer.draw_paddle(surface, self.computer, renderer.COLOR_COMPUTER)
         renderer.draw_puck(surface, self.puck)
         
-        # New rendering elements
-        renderer.draw_hud(surface, font, self.player_score, self.computer_score)
+        # Pass time_left to the renderer
+        renderer.draw_hud(surface, font, self.player_score, self.computer_score, self.time_left)
         if self.game_over:
             renderer.draw_game_over(surface, font, self.winner_text)

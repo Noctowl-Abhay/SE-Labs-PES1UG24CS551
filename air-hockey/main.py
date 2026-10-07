@@ -1,8 +1,6 @@
 """
 Air Hockey (Lab Starter)
-
 Run with:  python3 main.py
-
 Controls: Arrow keys move your paddle (left side, blue).
 """
 
@@ -10,7 +8,6 @@ import pygame
 
 from game.game_engine import GameEngine
 from game.renderer import WINDOW_SIZE
-
 
 def main():
     pygame.init()
@@ -22,20 +19,23 @@ def main():
     engine = GameEngine()
     running = True
     while running:
+        # Capture delta time (dt) in seconds and enforce 60 FPS
+        dt = clock.tick(60) / 1000.0
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
         keys = pygame.key.get_pressed()
         engine.handle_input(keys)
-        engine.update()
+        
+        # Pass dt to the engine for timer calculations
+        engine.update(dt)
+        
         engine.draw(screen, font)
-
         pygame.display.flip()
-        clock.tick(60)
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

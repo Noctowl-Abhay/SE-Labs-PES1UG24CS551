@@ -18,6 +18,7 @@ COLOR_PUCK = (240, 240, 240)
 COLOR_PLAYER = (60, 140, 240)
 COLOR_COMPUTER = (240, 80, 80)
 COLOR_TEXT = (255, 255, 255)
+COLOR_OVERLAY = (0, 0, 0, 150) 
 
 WINDOW_SIZE = (WIDTH, HEIGHT)
 
@@ -51,15 +52,10 @@ def draw_banner(surface, font, text):
     surf = font.render(text, True, (255, 220, 80))
     rect = surf.get_rect(center=(surface.get_width() // 2, surface.get_height() // 2))
     surface.blit(surf, rect)
-    
-    import pygame
 
-# Assuming existing constants are here: WIDTH, HEIGHT, COLOR_PLAYER, etc.
-COLOR_TEXT = (255, 255, 255)
-COLOR_OVERLAY = (0, 0, 0, 150) # Semi-transparent black
 
-def draw_hud(surface, font, player_score, computer_score):
-    """Draws the current score at the top center of the board."""
+def draw_hud(surface, font, player_score, computer_score, time_left):
+    """Draws the current score and match timer at the top center of the board."""
     # Player Score
     p_text = font.render(str(player_score), True, COLOR_TEXT)
     p_rect = p_text.get_rect(center=(WIDTH * 0.25, 40))
@@ -70,19 +66,24 @@ def draw_hud(surface, font, player_score, computer_score):
     c_rect = c_text.get_rect(center=(WIDTH * 0.75, 40))
     surface.blit(c_text, c_rect)
 
+    # Timer Display
+    time_str = f"Time: {int(time_left):02d}s"
+    t_text = font.render(time_str, True, COLOR_TEXT)
+    t_rect = t_text.get_rect(center=(WIDTH / 2, 25))
+    surface.blit(t_text, t_rect)
+
     # Center Divider / Hyphen
     div_text = font.render("-", True, COLOR_TEXT)
-    div_rect = div_text.get_rect(center=(WIDTH / 2, 40))
+    div_rect = div_text.get_rect(center=(WIDTH / 2, 55))
     surface.blit(div_text, div_rect)
+
 
 def draw_game_over(surface, font, winner_text):
     """Draws a darkened overlay and the winning message."""
-    # Darken screen
     overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
     overlay.fill(COLOR_OVERLAY)
     surface.blit(overlay, (0, 0))
 
-    # Draw Game Over Text
     text_surf = font.render(winner_text, True, COLOR_TEXT)
     text_rect = text_surf.get_rect(center=(WIDTH / 2, HEIGHT / 2))
     surface.blit(text_surf, text_rect)
