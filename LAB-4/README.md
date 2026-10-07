@@ -37,6 +37,7 @@ python main.py
 
 ## Folder Structure
 
+```
 LAB-4/
 ├── 02_air_hockey/
 │   └── air-hockey/
@@ -56,6 +57,7 @@ LAB-4/
 ├── PROMPTS-VIBE-CODING.pdf
 ├── LAB4_SUMMARY.txt
 └── README.md                      (My write-up)
+```
 
 ---
 
