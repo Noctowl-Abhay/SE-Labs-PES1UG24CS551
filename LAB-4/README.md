@@ -37,24 +37,25 @@ python main.py
 
 ## Folder Structure
 
-```
 LAB-4/
-├── air-hockey/
-│   ├── main.py
-│   ├── requirements.txt
-│   └── game/
-│       ├── game_engine.py
-│       ├── puck.py
-│       ├── paddle.py
-│       ├── collisions.py
-│       ├── ai.py
-│       └── renderer.py
-├── Run_main_Before.mp4
-├── Run_main_After.mp4
+├── 02_air_hockey/
+│   └── air-hockey/
+│       ├── main.py
+│       ├── requirements.txt
+│       ├── README.md              (instructor's original task README)
+│       └── game/
+│           ├── game_engine.py
+│           ├── puck.py
+│           ├── paddle.py
+│           ├── collisions.py
+│           ├── ai.py
+│           └── renderer.py
+├── Videos/
+│   ├── Run_main_Before.mp4
+│   └── Run_main_After.mp4
 ├── PROMPTS-VIBE-CODING.pdf
 ├── LAB4_SUMMARY.txt
-└── README.md
-```
+└── README.md                      (My write-up)
 
 ---
 
