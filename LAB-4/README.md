@@ -1,6 +1,6 @@
 # LAB-4: Vibe Coding - Air Hockey (Pygame)
 
-**SRN:** PES1UG24CS551
+**SRN:** PES1UG24CS551 <br>
 **Name:** Abhay Dubey H
 
 An LLM-assisted (Google Gemini) fix and extension of a Pygame Air Hockey game. One deliberate bug was fixed and three features were added, each as a separate task and commit.
