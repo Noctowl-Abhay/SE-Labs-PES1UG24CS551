@@ -51,8 +51,8 @@ Contains:
 
 ### LAB-5: Static Code Analysis - Retail POS System (Pylint, Flake8, Bandit)
 Project: Retail POS script (`pos_system.py`)
-<br>Working repo: [LAB-5_02_retail_pos](https://github.com/Noctowl-Abhay/LAB-5_02_retail_pos)
-Contains:
+<br> Repo-URL: [LAB-5_02_retail_pos](https://github.com/Noctowl-Abhay/LAB-5_02_retail_pos)
+<br> Contains:
 - Cleaned and updated code
   <br>  [Updated Code](/LAB-5/02_retail_pos)
 - Identified issues and fixes
