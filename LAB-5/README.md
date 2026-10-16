@@ -1,6 +1,6 @@
 # LAB-5: Static Code Analysis - Retail POS System
 
-**SRN:** PES1UG24CS551
+**SRN:** PES1UG24CS551 <br>
 **Name:** Abhay Dubey H
 
 Static analysis of a Retail POS script (`pos_system.py`) using **Pylint**, **Flake8** and **Bandit**. Issues were identified, documented, and fixed, with a separate commit for each tool.
