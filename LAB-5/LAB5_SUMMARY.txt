@@ -1,0 +1,12 @@
+Lab 5: Static Code Analysis — Retail POS System
+
+- Tools Used: Pylint, Bandit, Flake8
+- Target Codebase: pos_system.py
+- Key Deliverables: 
+  * Fixed security vulnerability (eval removal)
+  * Fixed bug (mutable default argument receipts=[])
+  * Replaced bare except blocks and fixed file resource leaks
+  * Refactored style, naming conventions, docstrings, and added main execution guard
+  * Maintained Pylint score > 9.5 (achieved 9.77/10)
+  * Created issues.md, reflection.md, and before/after static analysis reports
+- Git Strategy: Implemented strict "one issue per commit" discipline.
