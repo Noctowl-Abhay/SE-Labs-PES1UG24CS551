@@ -5,7 +5,7 @@
 
 An LLM-assisted (Google Gemini) fix and extension of a Pygame Air Hockey game. One deliberate bug was fixed and three features were added, each as a separate task and commit.
 
-- **Repo link:** https://github.com/SETAPESU26/02_air_hockey
+- **Repo link:** https://github.com/Noctowl-Abhay/02_air_hockey.git
 - **Chat history:** [PROMPTS-VIBE-CODING.pdf](PROMPTS-VIBE-CODING.pdf)
 - **Chat link:** https://gemini.google.com/app/74d9dcbf646ed8af
 - **Before video:** [Run_main_Before.mp4](Run_main_Before.mp4)
