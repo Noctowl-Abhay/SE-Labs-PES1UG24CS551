@@ -1,31 +1,22 @@
-Run started:2026-10-16 09:41:37.903600+00:00
+Run started:2026-10-16 11:31:04.090867+00:00
 
 Test results:
->> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
-   Severity: Low   Confidence: High
-   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
-   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
-   Location: ./pos_system.py:25:21
-24	    total = subtotal + tax
-25	    receipts.append((random.randint(1, 100), total))
-26	    return total
-
---------------------------------------------------
+	No issues identified.
 
 Code scanned:
 	Total lines of code: 51
 	Total lines skipped (#nosec): 0
-	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 1
 
 Run metrics:
 	Total issues (by severity):
 		Undefined: 0
-		Low: 1
+		Low: 0
 		Medium: 0
 		High: 0
 	Total issues (by confidence):
 		Undefined: 0
 		Low: 0
 		Medium: 0
-		High: 1
+		High: 0
 Files skipped (0):

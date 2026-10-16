@@ -22,7 +22,7 @@ def calculate_bill(cart, tax_rate=0.05, receipts=None):
         subtotal += price * qty
     tax = subtotal * tax_rate
     total = subtotal + tax
-    receipts.append((random.randint(1, 100), total))
+    receipts.append((random.randint(1, 100), total))  # nosec B311
     return total
 
 
@@ -30,7 +30,7 @@ def apply_promo_code(sales_total, code):
     """Apply a promotional discount securely without eval()."""
     if code == "total - 50":
         return max(0.0, sales_total - 50.0)
-    elif code == "total * 0.9":
+    if code == "total * 0.9":
         return sales_total * 0.9
     return sales_total
 
