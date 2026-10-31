@@ -63,3 +63,16 @@ Project: Retail POS script (`pos_system.py`)
   <br>  [Lab 5 README](/LAB-5/README.md)
 - Lab Summary
   <br>  [Lab 5 Summary](/LAB-5/LAB5_SUMMARY.txt)
+
+### LAB-6: Code and Branch Coverage Analysis - Car Rental Rate (coverage, pytest)
+Project: Car rental rate module (`car_rental_rate.py`)
+<br> Repo-URL: [L6_L7_02_car_rental_rate](https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate)
+<br> Contains:
+- Application code and test cases (19 tests, 100% line and 100% branch coverage)
+  <br>  [Code](/LAB-6/car_rental_rate.py) | [Test Cases](/LAB-6/test_car_rental.py)
+- Coverage screenshots (before and after)
+  <br>  [Screenshots](/LAB-6/screenshots)
+- Lab README
+  <br>  [Lab 6 README](/LAB-6/README.md)
+- Lab Summary
+  <br>  [Lab 6 Summary](/LAB-6/LAB6_SUMMARY.txt)
