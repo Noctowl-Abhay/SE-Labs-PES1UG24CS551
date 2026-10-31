@@ -69,7 +69,7 @@ Project: Car rental rate module (`car_rental_rate.py`)
 <br> Repo-URL: [L6_L7_02_car_rental_rate](https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate)
 <br> Contains:
 - Application code and test cases (19 tests, 100% line and 100% branch coverage)
-  <br>  [Code](/LAB-6/car_rental_rate.py) | [Test Cases](/LAB-6/test_car_rental.py)
+  <br>  [Code](https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/blob/main/Lab%206/car_rental_rate.py) | [Test Cases](https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/blob/main/Lab%206/test_car_rental.py)y)
 - Coverage screenshots (before and after)
   <br>  [Screenshots](/LAB-6/screenshots)
 - Lab README
