@@ -1,0 +1,76 @@
+LAB 6 SUMMARY: CODE AND BRANCH COVERAGE ANALYSIS
+=================================================
+SRN  : PES1UG24CS551
+Name : Abhay Dubey H
+Repo : https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate
+
+Module under test : car_rental_rate.py (51 statements, 36 branches)
+  - process_rental_fleet(rentals, base_admin_fee)
+  - check_fleet_telematics(telematics_matrix)
+Test file         : test_car_rental.py
+Tools             : Python 3, coverage, pytest
+
+-------------------------------------------------
+RESULTS
+-------------------------------------------------
+                       Before          After
+Tests                  1               19
+Line coverage          47%             100%
+  (statements missed)  27 of 51        0 of 51
+Branch coverage        44%             100%
+  (partial branches)   10 of 36        0 of 36
+
+Target was at least 90%. Both measures reached 100%.
+
+Lines missed before: 3, 10, 17-18, 21, 23, 31-32, 34-38, 43, 48, 50, 55-67
+
+-------------------------------------------------
+COMMANDS USED
+-------------------------------------------------
+Code coverage:
+  coverage run -m pytest test_car_rental.py
+  coverage report -m
+
+Branch coverage:
+  coverage run --branch --source=car_rental_rate -m pytest test_car_rental.py
+  coverage report -m
+
+-------------------------------------------------
+TEST CASES ADDED (18 on top of the starter test)
+-------------------------------------------------
+process_rental_fleet
+  test_single_economy_rental     starter: confirmed economy rental, 100 miles
+  test_invalid_arguments         non-list input and negative admin fee raise ValueError
+  test_unconfirmed_rental        unconfirmed rental skipped -> EMPTY_BATCH
+  test_invalid_rental_days       days = 0 raises a risk flag and is skipped
+  test_luxury_rental             luxury daily rate (120)
+  test_suv_rental                SUV daily rate (70)
+  test_unknown_vehicle_type      unknown type falls back to default rate (40)
+  test_young_luxury_driver       driver under 25, luxury surcharge (50/day)
+  test_young_non_luxury_driver   driver under 25, other surcharge (20/day)
+  test_negative_trip_miles       negative miles flagged and skipped
+  test_long_trip_miles           segment over 300 miles at 0.40/mile (adult)
+  test_young_driver_long_trip    segment over 300 miles, driver under 21: flat 250, loop break
+  test_high_risk_audit           more than 4 risk flags -> HIGH_RISK_AUDIT
+  test_empty_batch               empty list -> EMPTY_BATCH
+
+check_fleet_telematics
+  test_telematics_no_data            empty matrix -> NO_DATA
+  test_telematics_safe               speeds never exceed 100 -> SAFE
+  test_telematics_speeding_reset     speeding streak broken by a slow reading -> SAFE
+  test_telematics_ground_vehicle     two consecutive readings over 100 -> GROUND_VEHICLE
+  test_telematics_multiple_vehicles  second vehicle triggers GROUND_VEHICLE
+
+-------------------------------------------------
+OBSERVATIONS
+-------------------------------------------------
+- Line coverage alone is easy to over-trust. Branches such as the
+  "miles > 300" check and the "driver_age < 21" check need both a True
+  and a False case, not just one pass through the line.
+- The early `break` for drivers under 21 on long trips needed its own
+  test, since it skips the rest of the trip segments.
+- The telematics streak counter only resets on a slow reading, so a
+  test with a slow reading between two fast ones was needed to cover
+  the else branch.
+- Edge values worth noting: exactly 100 mph does not count as speeding
+  (> 100), and exactly 300 miles uses the normal 0.20/mile rate.
