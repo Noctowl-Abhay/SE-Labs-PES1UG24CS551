@@ -1,0 +1,101 @@
+LAB 7 SUMMARY: FUZZ TESTING WITH HYPOTHESIS
+=================================================
+SRN  : PES1UG24CS551
+Name : Abhay Dubey H
+Repo : https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/tree/main/Lab%207
+
+Module under test : processor.py (3 functions)
+  - sanitize_license_plate(plate)
+  - parse_trip_mileage(mileage_csv)
+  - format_rental_invoice(record)
+Test file         : test_processor.py
+Tools             : Python 3.14.4, pytest 9.2.0, hypothesis 6.170.15
+
+-------------------------------------------------
+RESULTS
+-------------------------------------------------
+                       Before (buggy)     After (fixed)
+Tests collected        3                  3
+Passed                 0                  3
+Failed                 3                  0
+Run time               0.27s              0.36s
+
+Failing input found by Hypothesis (all three tests): s = None
+
+-------------------------------------------------
+COMMANDS USED
+-------------------------------------------------
+Install:
+  pip install hypothesis pytest
+
+Run the application:
+  python processor.py
+
+Run the fuzz tests:
+  python3 -m pytest test_processor.py
+
+-------------------------------------------------
+FUZZ TESTS WRITTEN (strategy: st.text() | st.none())
+-------------------------------------------------
+test_sanitize_license_plate_no_crash
+    Property: sanitize_license_plate never raises. Any exception
+    fails the test.
+test_parse_trip_mileage_safe
+    Property: parse_trip_mileage only raises ValueError or TypeError
+    at worst. Any other exception fails the test.
+test_format_rental_invoice_safe
+    Property: format_rental_invoice only raises ValueError, TypeError
+    or IndexError at worst. Any other exception fails the test.
+
+-------------------------------------------------
+BUGS FOUND (before the fix)
+-------------------------------------------------
+sanitize_license_plate   AttributeError: 'NoneType' object has no
+                         attribute 'strip'   (plate = None)
+parse_trip_mileage       AttributeError: 'NoneType' object has no
+                         attribute 'split'   (mileage_csv = None)
+format_rental_invoice    AttributeError: 'NoneType' object has no
+                         attribute 'split'   (record = None)
+
+Root cause: none of the functions checked the type of their input,
+so None reached a string method (.strip / .split) and crashed.
+
+-------------------------------------------------
+FIXES APPLIED IN processor.py
+-------------------------------------------------
+sanitize_license_plate
+  - None or non-string input -> returns "" instead of crashing.
+  - Strips whitespace, removes '-', ' ', '_', '#', then uppercases.
+parse_trip_mileage
+  - None or non-string input -> returns [].
+  - Each piece is stripped; empty pieces are skipped.
+  - A piece that is not a number (ValueError) is skipped, so
+    "10, abc, 20" gives [10.0, 20.0].
+format_rental_invoice
+  - None or non-string input -> "Invalid Record".
+  - Fewer than 3 ':'-separated fields -> "Invalid Record Format".
+  - Days that is not an integer falls back to 0.
+  - Category "suv" (any case) is 50.0/day, everything else 30.0/day.
+
+-------------------------------------------------
+OBSERVATIONS
+-------------------------------------------------
+- All three failures came from the same input, None. The st.none()
+  part of the strategy found it straight away; plain st.text() alone
+  would not have.
+- The tests follow the "it should not crash" property, so they check
+  robustness, not correctness of the output.
+- Hypothesis shrinks a failing input to the smallest case, which is
+  why the report shows a clean s = None instead of a long random
+  string.
+- Things the current fix still allows (the tests do not catch them,
+  since nothing crashes): negative days give a negative invoice
+  total, and float() accepts values like "nan" and "inf" in
+  parse_trip_mileage.
+
+-------------------------------------------------
+DELIVERABLES
+-------------------------------------------------
+1. SE_PES1UG24CS551_LAB-7.pdf   (screenshots)
+2. processor.py                 (fixed application script)
+3. test_processor.py            (completed Hypothesis tests)
