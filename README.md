@@ -76,3 +76,18 @@ Project: Car rental rate module (`car_rental_rate.py`)
   <br>  [Lab 6 README](/LAB-6/README.md)
 - Lab Summary
   <br>  [Lab 6 Summary](/LAB-6/LAB6_SUMMARY.txt)
+
+### LAB-7: Fuzz Testing with Hypothesis - Car Rental Rate (Hypothesis, pytest)
+Project: Car rental input-processing module (`processor.py`)
+<br> Repo-URL: [L6_L7_02_car_rental_rate](https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/tree/main/Lab%207)
+<br> Contains:
+- Fixed application code and fuzz tests (3 Hypothesis tests: 3 failed on the buggy code, 3 passed after the fix)
+  <br>  [Code](/LAB-7/processor.py) | [Test Cases](/LAB-7/test_processor.py)
+- Screenshots (before and after the fix)
+  <br>  [Screenshots](/LAB-7/screenshots)
+- Lab Report (PDF with screenshots)
+  <br>  [Lab 7 Report](/LAB-7/SE_PES1UG24CS551_LAB-7.pdf)
+- Lab README
+  <br>  [Lab 7 README](/LAB-7/README.md)
+- Lab Summary
+  <br>  [Lab 7 Summary](/LAB-7/LAB7_SUMMARY.txt)
