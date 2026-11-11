@@ -5,7 +5,7 @@
 
 Coverage analysis of a car rental module (`car_rental_rate.py`) using **coverage** and **pytest**. Starting from a single example test, more test cases were written to reach **100% line coverage** and **100% branch coverage**.
 
-- **Repo link:** https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/Lab 6
+- **Repo link:** https://github.com/Noctowl-Abhay/L6_L7_02_car_rental_rate/'Lab 6'
 - **Code:** [car_rental_rate.py](car_rental_rate.py)
 - **Test cases:** [test_car_rental.py](test_car_rental.py)
 - **Screenshots (code coverage):** [Before](screenshots/code-coverage-before.png) | [After](screenshots/code-coverage-after.png)
